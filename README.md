@@ -9,3 +9,7 @@ You'll get to use your skills to build something that's actually connected to re
 - The provided files include a NASA logo, date inputs, a button, a placeholder for your gallery, and basic layout and styling to help you get started.
 - It also includes built-in logic (in `dateRange.js`) to handle the valid APOD date range—from June 16, 1995 to today. No need to modify it.
 - All your custom JavaScript should go in `script.js`. That's where you'll write the code that fetches data and displays your gallery.
+
+## Developer Notes - Matthew Marlatt
+As stated above, this website uses NASA's public APOD API to display every "Astronomy Picture of the Day" from the start date you select to the end date that you select. If you really want, you can go through every "Astronomy Picture of the Day" that is available. These pictures are organized from earliest to latest in a gallery which the user can interact with. There is a details button on each card that when clicked, opens a modal window that shows
+the image, title, and description of that "Astronomy Picture of the Day."

@@ -6,6 +6,7 @@ const startInput = document.getElementById('startDate');
 const endInput = document.getElementById('endDate');
 const fetchButton = document.querySelector('.filters button');
 const gallery = document.getElementById('gallery');
+const heroImage = document.querySelector('.hero-image');
 const detailsModal = document.getElementById('detailsModal');
 const modalCloseButton = document.getElementById('modalClose');
 const modalImage = document.getElementById('modalImage');
@@ -15,6 +16,7 @@ const modalStory = document.getElementById('modalStory');
 const modalSource = document.getElementById('modalSource');
 
 let currentGalleryItems = [];
+let isInitialLoad = true;
 
 setupDateInputs(startInput, endInput);
 
@@ -83,12 +85,33 @@ async function fetchImages() {
 		}
 
 		currentGalleryItems = imageItems.reverse();
+
+		if (isInitialLoad && currentGalleryItems.length > 0) {
+			updateHeroImage(currentGalleryItems[0]);
+			currentGalleryItems = currentGalleryItems.slice(1);
+			isInitialLoad = false;
+
+			if (currentGalleryItems.length === 0) {
+				renderMessage('Featured image is shown above. Try a wider date range for more images.');
+				return;
+			}
+		}
+
 		renderGallery(currentGalleryItems);
 	} catch (error) {
 		renderMessage('Unable to load images right now. Please try again.');
 		currentGalleryItems = [];
 		console.error(error);
 	}
+}
+
+function updateHeroImage(item) {
+	if (!heroImage || !item) {
+		return;
+	}
+
+	heroImage.src = item.hdurl || item.url;
+	heroImage.alt = item.title || 'Featured space image';
 }
 
 function renderGallery(items) {
